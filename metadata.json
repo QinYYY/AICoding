@@ -1,0 +1,5 @@
+{
+  "name": "LittleSprout Growth Tracker",
+  "description": "A smart child growth tracking application that records height and weight, visualizes growth curves, and provides AI-powered insights based on growth trends.",
+  "requestFramePermissions": []
+}
