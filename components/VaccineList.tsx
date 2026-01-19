@@ -19,8 +19,8 @@ export const VaccineList: React.FC<VaccineListProps> = ({ records, onDelete }) =
         <div className="w-16 h-16 bg-teal-50 rounded-full flex items-center justify-center text-3xl mb-4">
           💉
         </div>
-        <p className="text-gray-800 font-semibold">No vaccines recorded yet</p>
-        <p className="text-gray-400 text-sm mt-1">Keep track of immunizations here</p>
+        <p className="text-gray-800 font-semibold">还没有疫苗记录</p>
+        <p className="text-gray-400 text-sm mt-1">在这里记录接种信息</p>
       </div>
     );
   }
@@ -34,7 +34,7 @@ export const VaccineList: React.FC<VaccineListProps> = ({ records, onDelete }) =
             {/* Date Box */}
             <div className="flex-shrink-0">
               <div className="bg-teal-50 w-14 h-14 rounded-xl flex items-center justify-center text-teal-600 font-bold text-xs flex-col">
-                  <span className="text-gray-500 font-medium">{format(dateObj, 'MMM')}</span>
+                  <span className="text-gray-500 font-medium">{format(dateObj, 'M')}月</span>
                   <span className="text-lg text-teal-600">{format(dateObj, 'd')}</span>
                   <span className="text-gray-400 font-light scale-90">{format(dateObj, 'yyyy')}</span>
               </div>
@@ -58,8 +58,8 @@ export const VaccineList: React.FC<VaccineListProps> = ({ records, onDelete }) =
                 <button 
                   onClick={() => onDelete(record.id)}
                   className="bg-red-500 text-white hover:bg-red-600 transition-all p-2 rounded-xl -mr-2 active:scale-95 shadow-md shadow-red-500/20"
-                  aria-label="Delete vaccine record"
-                  title="Delete"
+                  aria-label="删除疫苗记录"
+                  title="删除"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                 </button>

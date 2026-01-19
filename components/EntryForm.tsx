@@ -34,7 +34,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onAdd, onCancel, initialDa
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-6 animate-slide-up shadow-2xl">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-gray-800">{initialData ? 'Edit Record' : 'Add New Record'}</h2>
+          <h2 className="text-xl font-bold text-gray-800">{initialData ? '编辑记录' : '添加新记录'}</h2>
           <button onClick={onCancel} className="text-gray-400 hover:text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
@@ -42,7 +42,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onAdd, onCancel, initialDa
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">日期</label>
             <input
               type="date"
               required
@@ -54,7 +54,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onAdd, onCancel, initialDa
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Height (cm)</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">身高 (cm)</label>
               <input
                 type="number"
                 step="0.1"
@@ -66,7 +66,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onAdd, onCancel, initialDa
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Weight (kg)</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">体重 (kg)</label>
               <input
                 type="number"
                 step="0.01"
@@ -80,11 +80,11 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onAdd, onCancel, initialDa
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Notes (Optional)</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">备注 (可选)</label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="E.g., After lunch"
+              placeholder="例如：午饭后测量"
               rows={2}
               className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 resize-none"
             />
@@ -92,7 +92,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onAdd, onCancel, initialDa
 
           <div className="pt-4">
             <Button type="submit" className="w-full">
-              {initialData ? 'Update Record' : 'Save Record'}
+              {initialData ? '更新记录' : '保存记录'}
             </Button>
           </div>
         </form>

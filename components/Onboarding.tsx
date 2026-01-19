@@ -25,25 +25,25 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
           <div className="w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
             🌱
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">Welcome to LittleSprout</h1>
-          <p className="text-gray-500 mt-2">Let's set up your child's profile to start tracking their growth.</p>
+          <h1 className="text-2xl font-bold text-gray-800">欢迎使用 LittleSprout</h1>
+          <p className="text-gray-500 mt-2">让我们建立宝宝的档案，开始记录成长的点滴。</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Child's Name</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">宝宝姓名</label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter name"
+              placeholder="请输入姓名"
               className="w-full px-5 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:border-teal-500 focus:bg-white transition-all outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Date of Birth</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">出生日期</label>
             <input
               type="date"
               required
@@ -55,7 +55,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Gender</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">性别</label>
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
@@ -66,7 +66,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     : 'border-gray-100 bg-white text-gray-500 hover:border-teal-200'
                 }`}
               >
-                👦 Boy
+                👦 男宝
               </button>
               <button
                 type="button"
@@ -77,14 +77,14 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     : 'border-gray-100 bg-white text-gray-500 hover:border-pink-200'
                 }`}
               >
-                👧 Girl
+                👧 女宝
               </button>
             </div>
           </div>
 
           <div className="pt-4">
             <Button type="submit" className="w-full text-lg">
-              Start Tracking
+              开始记录
             </Button>
           </div>
         </form>

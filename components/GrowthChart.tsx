@@ -63,10 +63,10 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
 
   // Custom Tick Formatter for Age
   const formatXAxis = (ageMonths: number) => {
-    if (ageMonths < 12) return `${Math.round(ageMonths)}m`;
+    if (ageMonths < 12) return `${Math.round(ageMonths)}个月`;
     const years = Math.floor(ageMonths / 12);
     const months = Math.round(ageMonths % 12);
-    return months === 0 ? `${years}y` : `${years}y${months}m`;
+    return months === 0 ? `${years}岁` : `${years}岁${months}个月`;
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -77,16 +77,16 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
 
       return (
         <div className="bg-white p-3 border border-gray-100 shadow-lg rounded-xl text-xs">
-          <p className="font-bold text-gray-700 mb-1">{formatXAxis(label)} old</p>
+          <p className="font-bold text-gray-700 mb-1">{formatXAxis(label)}大</p>
           {userPoint && (
             <p className="text-teal-600 font-bold text-sm mb-1">
-              Your Child: {userPoint.value} {metric === 'height' ? 'cm' : 'kg'}
+              您的宝宝: {userPoint.value} {metric === 'height' ? 'cm' : 'kg'}
             </p>
           )}
           {p50 && (
             <div className="text-gray-400 space-y-0.5">
-              <p>Standard (50%): {parseFloat(p50.value).toFixed(1)}</p>
-              <p>Range (3%-97%): {parseFloat(payload.find((p: any) => p.dataKey === 'p3')?.value).toFixed(1)} - {parseFloat(payload.find((p: any) => p.dataKey === 'p97')?.value).toFixed(1)}</p>
+              <p>标准 (50%): {parseFloat(p50.value).toFixed(1)}</p>
+              <p>范围 (3%-97%): {parseFloat(payload.find((p: any) => p.dataKey === 'p3')?.value).toFixed(1)} - {parseFloat(payload.find((p: any) => p.dataKey === 'p97')?.value).toFixed(1)}</p>
             </div>
           )}
         </div>
@@ -98,7 +98,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
   return (
     <div className="bg-white p-4 rounded-3xl shadow-sm border border-teal-50">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-bold text-gray-800">Growth Curve</h3>
+        <h3 className="text-lg font-bold text-gray-800">生长曲线</h3>
         <div className="bg-gray-100 p-1 rounded-lg flex text-sm font-medium">
           <button
             onClick={() => setMetric('height')}
@@ -106,7 +106,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
               metric === 'height' ? 'bg-white text-teal-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
             }`}
           >
-            Height
+            身高
           </button>
           <button
             onClick={() => setMetric('weight')}
@@ -114,7 +114,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
               metric === 'weight' ? 'bg-white text-teal-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
             }`}
           >
-            Weight
+            体重
           </button>
         </div>
       </div>
@@ -152,7 +152,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
               data={userData}
               type="monotone"
               dataKey="userValue"
-              name="Your Child"
+              name="您的宝宝"
               stroke={metric === 'height' ? '#14b8a6' : '#f59e0b'}
               strokeWidth={2}
               connectNulls
@@ -167,8 +167,8 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ records, profile }) =>
             
             <Legend 
               payload={[
-                { value: 'Your Child', type: 'circle', color: metric === 'height' ? '#14b8a6' : '#f59e0b' },
-                { value: 'Standard (P3-P97)', type: 'line', color: '#d1d5db' }
+                { value: '您的宝宝', type: 'circle', color: metric === 'height' ? '#14b8a6' : '#f59e0b' },
+                { value: '标准范围 (P3-P97)', type: 'line', color: '#d1d5db' }
               ]} 
             />
           </ComposedChart>

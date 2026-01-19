@@ -15,7 +15,7 @@ export const analyzeGrowth = async (
   records: GrowthRecord[]
 ): Promise<string> => {
   const client = getClient();
-  if (!client) return "API Key missing. Cannot generate analysis.";
+  if (!client) return "缺少 API 密钥，无法生成分析报告。";
 
   // Sort records by date
   const sortedRecords = [...records].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -24,26 +24,27 @@ export const analyzeGrowth = async (
   const recentRecords = sortedRecords.slice(-10);
 
   const prompt = `
-    You are a helpful pediatric growth assistant. 
-    Please analyze the following growth data for a child.
+    你是一位专业的儿科成长助手。
+    请分析以下儿童的生长数据。
+    请使用中文回答。
     
-    Child Profile:
-    - Name: ${profile.name}
-    - Gender: ${profile.gender}
-    - Birth Date: ${profile.birthDate}
+    儿童档案:
+    - 姓名: ${profile.name}
+    - 性别: ${profile.gender}
+    - 出生日期: ${profile.birthDate}
     
-    Recent Growth Records (Height in cm, Weight in kg):
+    近期生长记录 (身高 cm, 体重 kg):
     ${JSON.stringify(recentRecords, null, 2)}
     
-    Task:
-    1. Calculate the current age based on the last record or today's date.
-    2. Compare the latest stats roughly against WHO child growth standards (percentiles).
-    3. Provide a brief, encouraging summary of their growth trend.
-    4. Mention if the growth seems steady or if there are any sudden changes.
-    5. Keep the tone warm, reassuring, and professional. 
-    6. IMPORTANT: Add a disclaimer that you are an AI and this is not medical advice.
+    任务:
+    1. 根据最后一条记录或今天日期计算当前年龄。
+    2. 将最新数据与 WHO 儿童生长标准（百分位）进行大致比较。
+    3. 提供一段简短、鼓励性的生长趋势总结。
+    4. 指出生长是否平稳，或是否有突然的变化。
+    5. 语气要温暖、让人安心且专业。
+    6. 重要：必须添加免责声明，说明你是一个 AI，此分析不构成医疗建议。
     
-    Output format: a short paragraph (max 150 words).
+    输出格式: 一段简短的段落（不超过 150 字）。
   `;
 
   try {
@@ -51,9 +52,9 @@ export const analyzeGrowth = async (
       model: 'gemini-3-flash-preview',
       contents: prompt,
     });
-    return response.text || "Could not generate analysis.";
+    return response.text || "无法生成分析报告。";
   } catch (error) {
     console.error("Error generating growth analysis:", error);
-    return "Sorry, I couldn't analyze the data at this moment. Please check your connection or API key.";
+    return "抱歉，暂时无法分析数据。请检查您的网络连接或 API 密钥。";
   }
 };

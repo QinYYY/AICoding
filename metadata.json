@@ -1,5 +1,5 @@
 {
-  "name": "LittleSprout Growth Tracker",
-  "description": "A smart child growth tracking application that records height and weight, visualizes growth curves, and provides AI-powered insights based on growth trends.",
+  "name": "LittleSprout 成长记录",
+  "description": "一款智能儿童成长追踪应用，记录身高体重，生成生长曲线，并提供基于 AI 的成长趋势分析。",
   "requestFramePermissions": []
 }

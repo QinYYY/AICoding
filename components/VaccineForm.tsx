@@ -79,7 +79,7 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-6 animate-slide-up shadow-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-gray-800">Record Vaccine</h2>
+          <h2 className="text-xl font-bold text-gray-800">记录疫苗</h2>
           <button onClick={onCancel} className="text-gray-400 hover:text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
@@ -87,7 +87,7 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">日期</label>
             <input
               type="date"
               required
@@ -98,11 +98,11 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Vaccine Name</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">疫苗名称</label>
             <input
               type="text"
               required
-              placeholder="e.g. Hepatitis B"
+              placeholder="例如：乙肝疫苗"
               value={vaccineName}
               onChange={(e) => setVaccineName(e.target.value)}
               className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
@@ -111,22 +111,22 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Dose</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">剂次</label>
               <input
                 type="text"
                 required
-                placeholder="e.g. 1st Dose"
+                placeholder="例如：第一剂"
                 value={dose}
                 onChange={(e) => setDose(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Location</label>
+              <label className="block text-sm font-medium text-gray-600 mb-1">接种地点</label>
               <input
                 type="text"
                 required
-                placeholder="e.g. City Clinic"
+                placeholder="例如：社区医院"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
@@ -135,7 +135,7 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Photo (Optional)</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">照片 (可选)</label>
             <div 
               onClick={() => fileInputRef.current?.click()}
               className="w-full h-32 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-teal-300 hover:bg-teal-50 transition-colors overflow-hidden"
@@ -145,7 +145,7 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
               ) : (
                 <>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mb-2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                  <span className="text-sm text-gray-400">Tap to upload photo</span>
+                  <span className="text-sm text-gray-400">点击上传照片</span>
                 </>
               )}
             </div>
@@ -160,7 +160,7 @@ export const VaccineForm: React.FC<VaccineFormProps> = ({ onAdd, onCancel }) => 
 
           <div className="pt-4">
             <Button type="submit" className="w-full" disabled={isProcessing}>
-              {isProcessing ? 'Processing Image...' : 'Save Record'}
+              {isProcessing ? '处理图片中...' : '保存记录'}
             </Button>
           </div>
         </form>

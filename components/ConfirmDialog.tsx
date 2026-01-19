@@ -36,13 +36,13 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         
         <div className="grid grid-cols-2 gap-3">
           <Button variant="ghost" onClick={onCancel} className="bg-gray-100 hover:bg-gray-200 text-gray-700">
-            Cancel
+            取消
           </Button>
           <Button 
             variant={isDangerous ? 'danger' : 'primary'} 
             onClick={onConfirm}
           >
-            {isDangerous ? 'Delete' : 'Confirm'}
+            {isDangerous ? '删除' : '确认'}
           </Button>
         </div>
       </div>
