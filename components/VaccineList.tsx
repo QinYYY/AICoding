@@ -57,7 +57,7 @@ export const VaccineList: React.FC<VaccineListProps> = ({ records, onDelete }) =
                 </div>
                 <button 
                   onClick={() => onDelete(record.id)}
-                  className="text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors p-2 rounded-full -mr-2"
+                  className="bg-red-500 text-white hover:bg-red-600 transition-all p-2 rounded-xl -mr-2 active:scale-95 shadow-md shadow-red-500/20"
                   aria-label="Delete vaccine record"
                   title="Delete"
                 >

@@ -6,23 +6,44 @@ import { HistoryList } from './components/HistoryList';
 import { VaccineList } from './components/VaccineList';
 import { VaccineForm } from './components/VaccineForm';
 import { Button } from './components/Button';
+import { ConfirmDialog } from './components/ConfirmDialog';
+import { ProfileEditModal } from './components/ProfileEditModal';
 import { ChildProfile, GrowthRecord, VaccineRecord } from './types';
 import { loadState, saveState, clearState } from './services/storageService';
 import { analyzeGrowth } from './services/geminiService';
 import { differenceInMonths } from 'date-fns';
 
 type Tab = 'growth' | 'vaccines';
+type ConfirmState = {
+  isOpen: boolean;
+  title: string;
+  message: string;
+  isDangerous: boolean;
+  onConfirm: () => void;
+};
 
 const App: React.FC = () => {
   const [profile, setProfile] = useState<ChildProfile | null>(null);
   const [records, setRecords] = useState<GrowthRecord[]>([]);
   const [vaccines, setVaccines] = useState<VaccineRecord[]>([]);
+  
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingRecord, setEditingRecord] = useState<GrowthRecord | null>(null);
+  
   const [aiAnalysis, setAiAnalysis] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  
   const [showSettings, setShowSettings] = useState(false);
+  const [showProfileEdit, setShowProfileEdit] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('growth');
+
+  const [confirmDialog, setConfirmDialog] = useState<ConfirmState>({
+    isOpen: false,
+    title: '',
+    message: '',
+    isDangerous: false,
+    onConfirm: () => {},
+  });
 
   // Initialize from storage
   useEffect(() => {
@@ -45,6 +66,13 @@ const App: React.FC = () => {
     setProfile(newProfile);
   };
 
+  const handleProfileUpdate = (updatedProfile: ChildProfile) => {
+    setProfile(updatedProfile);
+    setShowProfileEdit(false);
+    // Recalculate AI analysis if profile changes (e.g. age changes affects context)
+    setAiAnalysis(''); 
+  };
+
   const handleSaveRecord = (record: GrowthRecord) => {
     setRecords(prev => {
       const existingIndex = prev.findIndex(r => r.id === record.id);
@@ -59,7 +87,6 @@ const App: React.FC = () => {
     });
     setShowAddModal(false);
     setEditingRecord(null);
-    // Clear old analysis when data changes
     setAiAnalysis('');
   };
 
@@ -74,16 +101,30 @@ const App: React.FC = () => {
   };
 
   const handleDeleteRecord = (id: string) => {
-    if (confirm('Are you sure you want to delete this record?')) {
-      setRecords(prev => prev.filter(r => r.id !== id));
-      setAiAnalysis('');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this growth record? This cannot be undone.',
+      isDangerous: true,
+      onConfirm: () => {
+        setRecords(prev => prev.filter(r => r.id !== id));
+        setAiAnalysis('');
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+      }
+    });
   };
 
   const handleDeleteVaccine = (id: string) => {
-    if (confirm('Are you sure you want to delete this vaccine record?')) {
-      setVaccines(prev => prev.filter(v => v.id !== id));
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Vaccine Record',
+      message: 'Are you sure you want to delete this vaccine record? This cannot be undone.',
+      isDangerous: true,
+      onConfirm: () => {
+        setVaccines(prev => prev.filter(v => v.id !== id));
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+      }
+    });
   };
 
   const handleGetInsight = async () => {
@@ -96,13 +137,20 @@ const App: React.FC = () => {
   };
 
   const handleReset = () => {
-    if (confirm('This will delete all data. Are you sure?')) {
-      clearState();
-      setProfile(null);
-      setRecords([]);
-      setVaccines([]);
-      setShowSettings(false);
-    }
+    setShowSettings(false);
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Reset All Data',
+      message: 'This will permanently delete the child profile, all growth records, and vaccine history. This action cannot be undone.',
+      isDangerous: true,
+      onConfirm: () => {
+        clearState();
+        setProfile(null);
+        setRecords([]);
+        setVaccines([]);
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+      }
+    });
   };
 
   const closeEntryModal = () => {
@@ -162,6 +210,15 @@ const App: React.FC = () => {
 
         {showSettings && (
            <div className="absolute right-6 top-24 bg-white shadow-xl border border-gray-100 p-2 rounded-xl w-48 animate-fade-in z-20">
+             <button 
+                onClick={() => {
+                  setShowSettings(false);
+                  setShowProfileEdit(true);
+                }}
+                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg text-sm font-medium transition-colors mb-1"
+             >
+               Edit Profile
+             </button>
              <button 
                 onClick={handleReset}
                 className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium transition-colors"
@@ -261,6 +318,23 @@ const App: React.FC = () => {
           />
         )
       )}
+
+      {showProfileEdit && (
+        <ProfileEditModal
+          profile={profile}
+          onSave={handleProfileUpdate}
+          onCancel={() => setShowProfileEdit(false)}
+        />
+      )}
+
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+        isDangerous={confirmDialog.isDangerous}
+      />
     </div>
   );
 };

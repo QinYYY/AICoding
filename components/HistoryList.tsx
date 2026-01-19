@@ -78,10 +78,10 @@ export const HistoryList: React.FC<HistoryListProps> = ({ records, onDelete, onE
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-1 flex-shrink-0">
+              <div className="flex items-center gap-2 flex-shrink-0 mt-1">
                 <button 
                   onClick={() => onEdit(record)}
-                  className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-colors"
+                  className="p-2 bg-teal-50 text-teal-600 hover:bg-teal-100 hover:text-teal-700 rounded-xl transition-all active:scale-95"
                   aria-label="Edit record"
                   title="Edit"
                 >
@@ -89,7 +89,7 @@ export const HistoryList: React.FC<HistoryListProps> = ({ records, onDelete, onE
                 </button>
                 <button 
                   onClick={() => onDelete(record.id)}
-                  className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                  className="p-2 bg-red-500 text-white hover:bg-red-600 rounded-xl transition-all active:scale-95 shadow-md shadow-red-500/20"
                   aria-label="Delete record"
                   title="Delete"
                 >
